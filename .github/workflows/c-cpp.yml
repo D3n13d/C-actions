@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up C environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install GCC
+      run: sudo apt-get install gcc
+    - name: Build
+      run: gcc -o myprogram myprogram.c
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: myprogram
+        path: myprogram
